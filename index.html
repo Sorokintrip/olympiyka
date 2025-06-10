@@ -188,6 +188,22 @@
   window.addEventListener('load', drawLines);
   window.addEventListener('resize', drawLines);
   window.addEventListener('scroll', drawLines);
+  window.addEventListener('DOMContentLoaded', () => {
+ 
+    const isComplete = Object.entries(correctAnswers).every(([col, arr]) => {
+    return arr.every((ans, idx) => {
+      const saved = localStorage.getItem(`tournament.${col}.${idx}`);
+      return saved && saved.trim() === ans;
+    });
+  });
+
+  if (isComplete) {
+    document.getElementById('grid').classList.add('hidden');
+    document.getElementById('lines').classList.add('hidden');
+    document.getElementById('overlay').style.opacity = '1';
+  }
+});
+
 </script>
 </body>
 </html>
